@@ -1,0 +1,34 @@
+---
+interface Props {
+  variant?: 'text' | 'circular' | 'rectangular';
+  width?: string;
+  height?: string;
+  lines?: number;
+}
+
+const { variant = 'text', width, height, lines = 1 } = Astro.props;
+
+const baseClass = "bg-gray-200 dark:bg-gray-700 animate-pulse rounded";
+
+const variants = {
+  text: "h-4 rounded",
+  circular: "rounded-full",
+  rectangular: "rounded-lg"
+};
+---
+
+{variant === 'text' && lines > 1 ? (
+  <div class="space-y-2">
+    {Array.from({ length: lines }).map((_, i) => (
+      <div 
+        class={`${baseClass} ${variants.text}`}
+        style={`width: ${i === lines - 1 ? '75%' : width || '100%'}; height: ${height || '1rem'}`}
+      />
+    ))}
+  </div>
+) : (
+  <div 
+    class={`${baseClass} ${variants[variant]}`}
+    style={`width: ${width || (variant === 'circular' ? '3rem' : '100%')}; height: ${height || (variant === 'circular' ? '3rem' : '1rem')}`}
+  />
+)}

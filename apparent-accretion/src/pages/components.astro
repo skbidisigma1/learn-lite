@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import Badge from "../components/Badge.astro";
+import Avatar from "../components/Avatar.astro";
+import ProgressBar from "../components/ProgressBar.astro";
+import Alert from "../components/Alert.astro";
+import StatCard from "../components/StatCard.astro";
+import CourseCard from "../components/CourseCard.astro";
+import ClassCard from "../components/ClassCard.astro";
+import AssignmentItem from "../components/AssignmentItem.astro";
+import Input from "../components/Input.astro";
+import Textarea from "../components/Textarea.astro";
+import Select from "../components/Select.astro";
+import Modal from "../components/Modal.astro";
+import Tabs from "../components/Tabs.astro";
+import TabPanel from "../components/TabPanel.astro";
+import Dropdown from "../components/Dropdown.astro";
+import EmptyState from "../components/EmptyState.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Tooltip from "../components/Tooltip.astro";
+import Spinner from "../components/Spinner.astro";
+import Skeleton from "../components/Skeleton.astro";
+import Divider from "../components/Divider.astro";
+import SearchBar from "../components/SearchBar.astro";
+import NotificationBadge from "../components/NotificationBadge.astro";
+---
+<BaseLayout>
+  <h1 class="text-2xl font-bold mb-6">Components Demo</h1>
+
+  <section class="space-y-6">
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Buttons</h2>
+      <div class="flex flex-wrap gap-3">
+        <Button>Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="danger">Danger</Button>
+        <Button size="lg">Large</Button>
+      </div>
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Badges & Avatars</h2>
+      <div class="flex items-center gap-3">
+        <Badge>Default</Badge>
+        <Badge variant="success">Success</Badge>
+        <Badge variant="warning">Warning</Badge>
+        <Badge variant="danger">Danger</Badge>
+        <Avatar initials="JS" />
+        <Avatar initials="AL" size="lg" />
+      </div>
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Progress & Alerts</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <ProgressBar value={42} label="Course Progress" />
+        <Alert variant="warning" title="Heads up!">This is a sample alert.</Alert>
+      </div>
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Cards</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <StatCard title="Assignments" value={14} subtitle="This week" trend="up" trendValue="+12%" icon="📝" />
+        <CourseCard title="Physics 101" description="Intro to mechanics" instructor="Dr. Newton" progress={65} status="active" />
+        <ClassCard title="Intro to Astronomy" code="ASTR 101" instructor="Dr. Starling" schedule="Mon & Wed 10:00–11:30" room="Rm 204" progress={42} students={28} capacity={30} status="active" />
+      </div>
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Assignment Item</h2>
+      <AssignmentItem title="Essay on WW2" course="History 201" dueDate="2025-12-05" points={20} status="pending" />
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Form Inputs</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <Input name="email" type="email" label="Email" placeholder="you@example.com" />
+        <Select name="role" label="Role" placeholder="Select role" options={[{value:'student',label:'Student'},{value:'teacher',label:'Teacher'}]} />
+        <Textarea name="bio" label="Bio" placeholder="Tell us about yourself" />
+        <SearchBar />
+      </div>
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Modal</h2>
+      <Button variant="outline" href="#" data-modal-open="demoModal">Open Modal</Button>
+      <Modal id="demoModal" title="Demo Modal">
+        <p>This is a simple modal body.</p>
+      </Modal>
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Tabs</h2>
+      <Tabs tabs={[{id:'tab1',label:'Tab One'},{id:'tab2',label:'Tab Two'}]} defaultTab="tab1">
+        <TabPanel id="tab1" active>
+          <p>Content for Tab One.</p>
+        </TabPanel>
+        <TabPanel id="tab2">
+          <p>Content for Tab Two.</p>
+        </TabPanel>
+      </Tabs>
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Dropdown</h2>
+      <Dropdown items={[{label:'Profile',href:'#'},{label:'Settings',href:'#'},{divider:true},{label:'Logout',href:'#'}]}>
+        <span slot="trigger">Open Menu</span>
+      </Dropdown>
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Breadcrumb</h2>
+      <Breadcrumb items={[{label:'Home',href:'/'},{label:'Components',href:'/components'},{label:'Demo'}]} />
+    </div>
+
+    <Divider />
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Tooltip, Spinner & Skeleton</h2>
+      <div class="flex items-center gap-4">
+        <Tooltip text="Helpful hint"><Button variant="secondary">Hover me</Button></Tooltip>
+        <Spinner />
+        <Skeleton width="200px" />
+      </div>
+    </div>
+
+    <Divider label="End of Demo" />
+
+    <div>
+      <EmptyState title="No Data" description="Try adding content or changing filters." />
+    </div>
+
+    <div class="mt-6">
+      <NotificationBadge count={3}>
+        <Button variant="primary">Inbox</Button>
+      </NotificationBadge>
+    </div>
+  </section>
+</BaseLayout>

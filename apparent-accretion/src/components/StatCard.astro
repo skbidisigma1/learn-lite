@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  value: string | number;
+  subtitle?: string;
+  icon?: string;
+  trend?: 'up' | 'down' | 'neutral';
+  trendValue?: string;
+}
+
+const { title, value, subtitle, icon, trend, trendValue } = Astro.props;
+
+const trendColors = {
+  up: "text-green-600",
+  down: "text-red-600",
+  neutral: "text-gray-500"
+};
+
+const trendIcons = {
+  up: "↑",
+  down: "↓",
+  neutral: "→"
+};
+---
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-lg transition-transform transition-shadow duration-300 ease-out motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:transition-none hover:-translate-y-[4px]">
+  <div class="flex items-center justify-between">
+    <div>
+      <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</p>
+      <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{value}</p>
+      {subtitle && <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{subtitle}</p>}
+      {trend && trendValue && (
+        <p class={`text-sm mt-2 ${trendColors[trend]}`}>
+          <span>{trendIcons[trend]}</span> {trendValue}
+        </p>
+      )}
+    </div>
+    {icon && (
+      <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center text-2xl">
+        {icon}
+      </div>
+    )}
+  </div>
+</div>

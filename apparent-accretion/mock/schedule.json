@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "title": "Calculus 2 Study Session",
+    "type": "study",
+    "host": "Mr. and Mrs. Collett",
+    "initials": "LC",
+    "avatar": "/avatars/collett.jpg",
+    "date": "Dec 7",
+    "time": "3pm",
+    "duration": "1 hr",
+    "spots": 8,
+    "description": "Working through integration techniques. Bring snacks, we're hungry!"
+  },
+  {
+    "id": 2,
+    "title": "Intro to Programming",
+    "type": "tutoring",
+    "host": "Eli Nelson",
+    "initials": "EN",
+    "avatar": "/avatars/eli.jpg",
+    "date": "Dec 8",
+    "time": "10am",
+    "duration": "1.5 hrs",
+    "spots": 2,
+    "description": "Learning foundational programming concepts with Python."
+  },
+  {
+    "id": 3,
+    "title": "Chemistry 1010 Tutoring",
+    "type": "tutoring",
+    "host": "Dr. Bio",
+    "initials": "DB",
+    "avatar": "/avatars/bio.jpg",
+    "date": "Dec 9",
+    "time": "2pm",
+    "duration": "2 hrs",
+    "spots": 0,
+    "description": "Learning cell structure and function! Join before it's full!!"
+  },
+  {
+    "id": 4,
+    "title": "Stats Review",
+    "type": "study",
+    "host": "Mrs. Marlowe",
+    "initials": "MM",
+    "avatar": "/avatars/marlowe.jpg",
+    "date": "Dec 8",
+    "time": "4pm",
+    "duration": "1 hr",
+    "spots": 6,
+    "description": "Going over unit 3 material before the test"
+  }
+]

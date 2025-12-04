@@ -1,0 +1,16 @@
+---
+interface Props {
+  id: string;
+  active?: boolean;
+}
+
+const { id, active = false } = Astro.props;
+---
+
+<div 
+  data-tab-panel={id} 
+  role="tabpanel"
+  class={active ? '' : 'hidden'}
+>
+  <slot />
+</div>

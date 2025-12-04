@@ -1,0 +1,66 @@
+---
+interface MenuItem {
+  label: string;
+  href?: string;
+  icon?: string;
+  divider?: boolean;
+}
+
+interface Props {
+  items: MenuItem[];
+  align?: 'left' | 'right';
+}
+
+const { items, align = 'left' } = Astro.props;
+
+const alignClass = align === 'right' ? 'right-0' : 'left-0';
+---
+
+<div class="relative inline-block" data-dropdown>
+  <button 
+    class="inline-flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+    data-dropdown-toggle
+  >
+    <slot name="trigger">Options</slot>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+  
+  <div 
+    class={`absolute ${alignClass} mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10 hidden`}
+    data-dropdown-menu
+  >
+    <div class="py-1">
+      {items.map(item => (
+        item.divider ? (
+          <hr class="my-1 border-gray-200 dark:border-gray-700" />
+        ) : (
+          <a 
+            href={item.href || '#'} 
+            class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            {item.icon && <span>{item.icon}</span>}
+            {item.label}
+          </a>
+        )
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-dropdown]').forEach(dropdown => {
+    const toggle = dropdown.querySelector('[data-dropdown-toggle]');
+    const menu = dropdown.querySelector('[data-dropdown-menu]');
+    
+    toggle?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu?.classList.toggle('hidden');
+    });
+    
+    document.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+    });
+  });
+</script>

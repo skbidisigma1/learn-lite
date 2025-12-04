@@ -1,0 +1,48 @@
+---
+import ProgressBar from "./ProgressBar.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  instructor?: string;
+  progress?: number;
+  image?: string;
+  status?: 'active' | 'completed' | 'upcoming';
+  href?: string;
+}
+
+const { 
+  title, 
+  description, 
+  instructor, 
+  progress = 0, 
+  image,
+  status = 'active',
+  href = "#"
+} = Astro.props;
+---
+
+<a href={href} class="block bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-lg transition-transform transition-shadow duration-300 ease-out motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-reduce:transition-none hover:-translate-y-[4px]">
+  {image && (
+    <div class="h-32 bg-gradient-to-r from-blue-500 to-purple-600">
+      <img src={image} alt={title} class="w-full h-full object-cover" />
+    </div>
+  )}
+  {!image && (
+    <div class="h-32 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+      <span class="text-white text-4xl">📚</span>
+    </div>
+  )}
+  <div class="p-4">
+    <h3 class="font-semibold text-gray-900 dark:text-white line-clamp-1 mb-2">{title}</h3>
+    {description && (
+      <p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-3">{description}</p>
+    )}
+    {instructor && (
+      <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Instructor: {instructor}</p>
+    )}
+    {status === 'active' && (
+      <ProgressBar value={progress} size="sm" showPercent={true} />
+    )}
+  </div>
+</a>

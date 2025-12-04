@@ -1,0 +1,25 @@
+---
+interface Props {
+  count?: number;
+  max?: number;
+  dot?: boolean;
+}
+
+const { count = 0, max = 99, dot = false } = Astro.props;
+
+const displayCount = count > max ? `${max}+` : count;
+const show = dot || count > 0;
+---
+
+<div class="relative inline-flex">
+  <slot />
+  {show && (
+    dot ? (
+      <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
+    ) : (
+      <span class="absolute -top-2 -right-2 min-w-[1.25rem] h-5 px-1 flex items-center justify-center text-xs font-bold text-white bg-red-500 rounded-full">
+        {displayCount}
+      </span>
+    )
+  )}
+</div>

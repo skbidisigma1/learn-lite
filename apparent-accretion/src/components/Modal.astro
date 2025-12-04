@@ -1,0 +1,72 @@
+---
+interface Props {
+  id: string;
+  title?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+}
+
+const { id, title, size = 'md' } = Astro.props;
+
+const sizes = {
+  sm: "max-w-sm",
+  md: "max-w-md",
+  lg: "max-w-lg",
+  xl: "max-w-xl"
+};
+---
+
+<div 
+  id={id} 
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50"
+  data-modal
+>
+  <div class={`bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full ${sizes[size]} max-h-[90vh] overflow-auto`}>
+    {title && (
+      <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{title}</h2>
+        <button 
+          class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl leading-none"
+          data-modal-close
+        >
+          &times;
+        </button>
+      </div>
+    )}
+    <div class="p-4">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  // Simple modal functionality
+  document.querySelectorAll('[data-modal-open]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modalId = btn.getAttribute('data-modal-open');
+      const modal = document.getElementById(modalId!);
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-modal]').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-modal-close]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modal = btn.closest('[data-modal]');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
+  });
+</script>

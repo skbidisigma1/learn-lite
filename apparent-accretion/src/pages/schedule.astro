@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Badge from "../components/Badge.astro";
+import Button from "../components/Button.astro";
+import Avatar from "../components/Avatar.astro";
+import sessions from "../../mock/schedule.json";
+---
+<BaseLayout>
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white"><span class="text-blue-600 dark:text-blue-400">Upcoming</span> Sessions</h1>
+    <p class="text-gray-500 dark:text-gray-400">Join a group or book some 1-on-1 time</p>
+  </div>
+  
+  <div class="flex flex-col gap-3">
+    {sessions.map(session => (
+      <div class="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md hover:bg-blue-50 dark:hover:bg-gray-700 transition-all">
+        <div class="flex items-start gap-4">
+          <Avatar src={session.avatar} initials={session.initials} size="md" />
+          <div class="flex-1 min-w-0">
+            <h2 class="font-semibold text-gray-900 dark:text-white mb-1">{session.title}</h2>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">{session.description}</p>
+            <div class="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-500">
+              <span>{session.date} · {session.time}</span>
+              <span class="text-gray-300 dark:text-gray-600">|</span>
+              <span>{session.duration}</span>
+              <span class="text-gray-300 dark:text-gray-600">|</span>
+              <span>{session.host}</span>
+            </div>
+          </div>
+          <div class="flex-shrink-0 text-right">
+            {session.spots > 0 ? (
+              <div class="flex flex-col items-end gap-2">
+                <span class="text-xs text-gray-200 dark:text-gray-100">{session.spots} {session.spots === 1 ? 'spot' : 'spots'} left</span>
+                <Button size="sm">Join</Button>
+              </div>
+            ) : (
+              <div class="flex flex-col items-end gap-1">
+                <Badge variant="danger">Full</Badge>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

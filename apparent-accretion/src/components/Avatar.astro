@@ -1,0 +1,36 @@
+---
+interface Props {
+  src?: string;
+  alt?: string;
+  initials?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+}
+
+const { src, alt = "Avatar", initials, size = 'md' } = Astro.props;
+
+const sizes = {
+  sm: "w-8 h-8 text-xs",
+  md: "w-10 h-10 text-sm",
+  lg: "w-12 h-12 text-base",
+  xl: "w-16 h-16 text-lg"
+};
+
+const sizeClass = sizes[size];
+---
+
+<div class={`${sizeClass} rounded-full ring-2 ring-white overflow-hidden relative bg-blue-600 flex items-center justify-center text-white font-semibold`}>
+  
+  <span class="absolute inset-0 flex items-center justify-center">
+    {initials || "?"}
+  </span>
+
+  {src && (
+    <img
+      src={src}
+      alt={alt}
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="lazy"
+      onerror="this.style.display='none'"
+    />
+  )}
+</div>

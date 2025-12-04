@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Card from "../components/Card.astro";
+import AssignmentItem from "../components/AssignmentItem.astro";
+import ClassCard from "../components/ClassCard.astro";
+
+---
+<BaseLayout>
+<h1 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white"><span class="text-blue-600 dark:text-blue-400">Learn</span>Dashboard</h1>
+   <div>
+      <h2 class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400 border-l-4 border-blue-600 dark:border-blue-400 pl-3">Assignments</h2>
+      <AssignmentItem title="Creative Writing: Design Your Own Fantasy World" course="English 102" dueDate="2025-12-10" points={100} status="pending" href="#" />
+      <AssignmentItem title="Math Puzzle Challenge: The Mystery of the Missing Numbers" course="Math 201" dueDate="2025-12-08" points={100} status="pending" href="#" />
+      <AssignmentItem title="Science Experiment: Build a Mini Volcano" course="Chemistry 101" dueDate="2025-12-09" points={100} status="pending" href="#" />
+    </div>
+   <div>
+      <h2 class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400 border-l-4 border-blue-600 dark:border-blue-400 pl-3">Classes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-0.5 gap-x-2 w-full">
+        <ClassCard title="Intro to Astronomy" code="ASTR 101" instructor="Dr. Starling" schedule="Mon & Wed 10:00–11:30" room="Rm 204" progress={42} students={28} capacity={30} status="active" />
+        <ClassCard title="Creative Writing Workshop" instructor="Prof. Page" schedule="Tue & Thu 1:00–2:30" room="Rm 110" />
+      <ClassCard title="Introduction to Robotics" instructor="Dr. Gear" schedule="Mon, Wed, Fri 09:00–10:30" room="Lab 3" />
+      </div>
+   </div>
+</BaseLayout>

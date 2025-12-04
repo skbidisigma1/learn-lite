@@ -1,0 +1,70 @@
+---
+interface Tab {
+  id: string;
+  label: string;
+  icon?: string;
+}
+
+interface Props {
+  tabs: Tab[];
+  defaultTab?: string;
+}
+
+const { tabs, defaultTab } = Astro.props;
+const activeTab = defaultTab || tabs[0]?.id;
+---
+
+<div class="w-full" data-tabs>
+  <div class="border-b border-gray-200 dark:border-gray-700">
+    <nav class="flex gap-4" role="tablist">
+      {tabs.map(tab => (
+        <button
+          role="tab"
+          data-tab-btn={tab.id}
+          aria-selected={tab.id === activeTab}
+          class={`
+            py-3 px-1 border-b-2 font-medium text-sm transition-colors
+            ${tab.id === activeTab 
+              ? 'border-blue-500 text-blue-600 dark:text-blue-400 dark:border-blue-400' 
+              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-600'}
+          `}
+        >
+          {tab.icon && <span class="mr-2">{tab.icon}</span>}
+          {tab.label}
+        </button>
+      ))}
+    </nav>
+  </div>
+  <div class="pt-4">
+    <slot />
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-tabs]').forEach(tabContainer => {
+    const buttons = tabContainer.querySelectorAll('[data-tab-btn]');
+    const panels = tabContainer.querySelectorAll('[data-tab-panel]');
+    
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabId = btn.getAttribute('data-tab-btn');
+        
+        // Update buttons
+        buttons.forEach(b => {
+          const isActive = b.getAttribute('data-tab-btn') === tabId;
+          b.setAttribute('aria-selected', String(isActive));
+          b.classList.toggle('border-blue-500', isActive);
+          b.classList.toggle('text-blue-600', isActive);
+          b.classList.toggle('border-transparent', !isActive);
+          b.classList.toggle('text-gray-500', !isActive);
+        });
+        
+        // Update panels
+        panels.forEach(panel => {
+          const isActive = panel.getAttribute('data-tab-panel') === tabId;
+          panel.classList.toggle('hidden', !isActive);
+        });
+      });
+    });
+  });
+</script>

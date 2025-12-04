@@ -1,0 +1,68 @@
+---
+interface Option {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+
+interface Props {
+  name: string;
+  options: Option[];
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  required?: boolean;
+  disabled?: boolean;
+  error?: string;
+}
+
+const { 
+  name, 
+  options,
+  label, 
+  placeholder,
+  value,
+  required = false,
+  disabled = false,
+  error
+} = Astro.props;
+
+const selectClasses = `
+  w-full px-3 py-2 border rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-800
+  focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent
+  disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed
+  ${error ? 'border-red-500 focus:ring-red-500 dark:border-red-500 dark:focus:ring-red-400' : 'border-gray-300 dark:border-gray-600'}
+`.trim();
+---
+
+<div class="w-full">
+  {label && (
+    <label for={name} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+      {label}
+      {required && <span class="text-red-500 dark:text-red-400">*</span>}
+    </label>
+  )}
+  <select
+    id={name}
+    name={name}
+    required={required}
+    disabled={disabled}
+    class={selectClasses}
+  >
+    {placeholder && (
+      <option value="" disabled selected={!value}>{placeholder}</option>
+    )}
+    {options.map(option => (
+      <option 
+        value={option.value} 
+        selected={value === option.value}
+        disabled={option.disabled}
+      >
+        {option.label}
+      </option>
+    ))}
+  </select>
+  {error && (
+    <p class="mt-1 text-sm text-red-600">{error}</p>
+  )}
+</div>
